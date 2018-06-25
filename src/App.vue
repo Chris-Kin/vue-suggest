@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <p>
-      <span>请选择xxx：</span>
-      <div>
-        <Suggest
-          class="dis-ib w300"
-          :data="list"
-          v-model="target"
-          @on-select="handleSelect"
-          @on-input-change="handleSuggest"
-        />
-      </div>
-    </p>
+    <span>所在城市：</span>
+    <Suggest
+      class="dis-ib w300"
+      :data="list"
+      v-model="target"
+      @on-select="handleSelect"
+      @on-input-change="handleSuggest"
+    />
   </div>
 </template>
 

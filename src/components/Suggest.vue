@@ -104,7 +104,7 @@ export default {
       // fix: 立即失焦导致慢点击option无效
       setTimeout(() => {
         this.isShowOption = false;
-      }, 150);
+      }, 100);
     },
     handleInputChange() {
       if (this.executing) {

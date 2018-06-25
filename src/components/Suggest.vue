@@ -6,9 +6,9 @@
  * @USAGE:
 
       <Suggest
-        :data="officeBuildingList"
-        @on-select="handleOfficeBuildingSelect"
-        @on-input-change="handleOfficeBuildingSuggest"
+        :data="list"
+        @on-select="handleSelect"
+        @on-input-change="handleSuggest"
       >
         <div class="green" slot-scope="{ item }">
           {{ item.name }}
@@ -19,6 +19,7 @@
  * debounce - on-input-change的节流周期，默认300ms
  * placeholder - placeholder，默认「请输入」
  * label - 渲染在下拉项中的内容，默认「name」，当使用slot指定option的渲染内容时，该属性被忽略
+ * code - 下拉项选中时同步给model的字段，默认「code」
  * data - 下拉列表数据
  * on-input-change - 输入框内容改变事件
  * on-select - 下拉项选中事件
@@ -40,13 +41,13 @@
     <section class="option-wrapper" @mouseleave="handleMouseLeave" :class="{ show: isShowOption }">
       <div
         class="option"
-        :key="el.code"
+        :key="el[code]"
         :class="{select: el.isSelect}"
         v-for="el in dataSource"
         @click="handleSelect(el)"
         @mouseover="handleHover(el)"
       >
-        <slot :item="el">{{el.name}}</slot>
+        <slot :item="el">{{el[label]}}</slot>
       </div>
     </section>
   </div>
@@ -54,6 +55,10 @@
 <script>
 export default {
   props: {
+    value: {
+      type: [String, Number],
+      default: '',
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -70,6 +75,10 @@ export default {
       type: String,
       default: 'name',
     },
+    code: {
+      type: String,
+      default: 'code',
+    },
     data: {
       type: Array,
       default: () => [],
@@ -84,7 +93,7 @@ export default {
   },
   computed: {
     dataSource() {
-      return [...this.data];
+      return JSON.parse(JSON.stringify(this.data));
     },
   },
   methods: {
@@ -108,15 +117,16 @@ export default {
       }, this.debounce);
     },
     handleSelect(item) {
+      this.keyword = item[this.label];
+      this.$emit('on-select', item);
+      this.$emit('input', item[this.code]);
       this.dataSource.forEach((el) => {
-        if (el.index === item.index) {
+        if (el[this.code] === item[this.code]) {
           el.isSelect = true;
         } else {
           el.isSelect = false;
         }
       });
-      this.keyword = item[this.label];
-      this.$emit('on-select', item);
     },
     handleHover(item) {
       this.$emit('on-option-hover', item);
@@ -128,10 +138,16 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+  .container {
+    position: relative;
+    text-align: left;
+  }
   input {
     width: 100%;
+    height: 30px;
     outline: none;
     border: 1px solid #ccc;
+    box-sizing: border-box;
     display: block;
     border-radius: 5px;
     padding: 0 10px;

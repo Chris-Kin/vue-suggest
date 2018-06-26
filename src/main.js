@@ -4,9 +4,11 @@ import Vue from 'vue';
 import 'web-base-css/dist/index.css';
 
 import App from './App';
+import suggest from './components/index';
 
 Vue.config.productionTip = false;
 
+Vue.use(suggest);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -12,13 +12,9 @@
 </template>
 
 <script>
-import Suggest from './components/Suggest';
 
 export default {
   name: 'App',
-  components: {
-    Suggest,
-  },
   data() {
     return {
       list: [],

@@ -244,6 +244,7 @@ var suggest = {
     Vue.component(__WEBPACK_IMPORTED_MODULE_0__Suggest__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_0__Suggest__["a" /* default */]);
   }
 };
+// 支持直接用标签引入suggest.js的方式
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(suggest);
 }

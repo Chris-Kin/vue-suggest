@@ -2,6 +2,7 @@
   "name": "vue2.0-suggest",
   "version": "1.0.0",
   "description": "Suggest component based on Vue2.0",
+  "keyword": "vue, suggest, component",
   "author": "misuhom@163.com",
   "private": false,
   "license": "MIT",

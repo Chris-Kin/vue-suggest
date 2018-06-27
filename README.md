@@ -1,6 +1,6 @@
 # vue2.0-suggest
 
-> Suggest component based on Vue2.0
+> Suggest component based on Vue2.0, built-in function throttling, supports mouseover/mouseleave event, and supports option customized lightly 
 
 ## api
 ```js

@@ -1,8 +1,11 @@
 'use strict'
 const path = require('path')
+const webpack = require('webpack')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+
+const runType = process.argv[5] === 'prod' ? 'production' : 'dev';
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -20,15 +23,30 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
-  entry: './src/components/index.js',
+  context: path.resolve(__dirname, '../'),
+  entry: {
+    suggest: runType === 'production'
+      ? './src/components/index.js'
+      : './src/main.js',
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'suggest.js',
-    publicPath: '/dist/',
+    filename: '[name].js',
+    publicPath: runType === 'production'
+      ? '/dist/'
+      : config.dev.assetsPublicPath,
+    // publicPath: '/dist/',
     library: 'Suggest',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {

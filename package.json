@@ -1,6 +1,6 @@
 {
   "name": "vue2.0-suggest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Suggest component based on Vue2.0",
   "keyword": "vue, suggest, component",
   "author": "misuhom@163.com",

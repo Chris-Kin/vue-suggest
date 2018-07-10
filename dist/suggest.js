@@ -227,6 +227,14 @@ return /******/ (function(modules) { // webpackBootstrap
     handleMouseLeave: function handleMouseLeave() {
       this.$emit('on-selection-leave');
     }
+  },
+  updated: function updated() {
+    var _this4 = this;
+
+    var defaultItem = this.data.find(function (el) {
+      return el.code === _this4.value;
+    });
+    this.keyword = defaultItem ? defaultItem.name : '';
   }
 });
 

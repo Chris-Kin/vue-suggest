@@ -136,6 +136,10 @@ export default {
       this.$emit('on-selection-leave');
     },
   },
+  updated() {
+    const defaultItem = this.data.find(el => el.code === this.value);
+    this.keyword = defaultItem ? defaultItem.name : '';
+  },
 };
 </script>
 <style lang="less" scoped>
